@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import store from 'store.js';
 import {
   doChangePath,
+  doNavigate,
   doDaemonReady,
   doHistoryPush
 } from 'actions/app'
@@ -54,11 +55,11 @@ window.addEventListener('popstate', (event, param) => {
 })
 
 ipcRenderer.on('open-uri-requested', (event, uri) => {
-  console.log('open uri')
   console.log(event)
   console.log(uri)
-  if (uri) {
-    console.log('FIX ME do magic dispatch: ' + uri);
+  if (uri && uri.startsWith('lbry://')) {
+    console.log(uri)
+    doNavigate('/show', { uri })
   }
 });
 
