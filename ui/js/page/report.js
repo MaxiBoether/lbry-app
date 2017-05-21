@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'component/link';
 import Modal from '../component/modal.js';
 import lbry from '../lbry.js';
+import { intlShape, injectIntl } from 'react-intl';
 
 class ReportPage extends React.Component {
   constructor(props) {
@@ -35,16 +36,21 @@ class ReportPage extends React.Component {
   }
 
   render() {
+
+    const {
+      intl,
+    } = this.props
+
     return (
       <main className="main--single-column">
         <section className="card">
-          <h3>Report an Issue</h3>
-          <p>Please describe the problem you experienced and any information you think might be useful to us. Links to screenshots are great!</p>
+          <h3>{intl.formatMessage({ id: 'app.page.report.report' })}</h3>
+          <p>{intl.formatMessage({ id: 'app.page.report.explanation' })}</p>
           <div className="form-row">
             <textarea ref={(t) => this._messageArea = t} cols="80" rows="10" name="message" type="text"/>
           </div>
           <div className="form-row form-row-submit">
-            <button onClick={(event) => { this.submitMessage(event) }} className={'button-block button-primary ' + (this.state.submitting ? 'disabled' : '')}>{this.state.submitting ? 'Submitting...' : 'Submit Report'}</button>
+            <button onClick={(event) => { this.submitMessage(event) }} className={'button-block button-primary ' + (this.state.submitting ? 'disabled' : '')}>{this.state.submitting ? intl.formatMessage({ id: 'app.page.report.submitting' }) : intl.formatMessage({ id: 'app.page.report.submit' })}</button>
           </div>
         </section>
         <section className="card">
@@ -60,4 +66,8 @@ class ReportPage extends React.Component {
   }
 }
 
-export default ReportPage;
+ReportPage.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(ReportPage);

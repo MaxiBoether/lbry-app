@@ -4,6 +4,7 @@ import {
 } from 'component/modal'
 import {Line} from 'rc-progress';
 import Link from 'component/link'
+import { intlShape, injectIntl } from 'react-intl';
 
 class DownloadingModal extends React.Component {
   render() {
@@ -12,18 +13,19 @@ class DownloadingModal extends React.Component {
       downloadComplete,
       startUpgrade,
       cancelUpgrade,
+      intl,
     } = this.props
 
     return (
-      <Modal isOpen={true} contentLabel="Downloading Update" type="custom">
-        Downloading Update{downloadProgress ? `: ${downloadProgress}%` : null}
+      <Modal isOpen={true} contentLabel={intl.formatMessage({ id: 'app.downloadingModal.updateDownload' })} type="custom">
+        {intl.formatMessage({ id: 'app.downloadingModal.updateDownload' })}{downloadProgress ? `: ${downloadProgress}%` : null}
         <Line percent={downloadProgress} strokeWidth="4"/>
         {downloadComplete ? (
            <div>
              <br />
-             <p>Click "Begin Upgrade" to start the upgrade process.</p>
-             <p>The app will close, and you will be prompted to install the latest version of LBRY.</p>
-             <p>After the install is complete, please reopen the app.</p>
+             <p>{intl.formatMessage({ id: 'app.downloadingModal.explanation1' })}</p>
+             <p>{intl.formatMessage({ id: 'app.downloadingModal.explanation2' })}</p>
+             <p>{intl.formatMessage({ id: 'app.downloadingModal.explanation3' })}</p>
            </div>
          ) : null }
         <div className="modal__buttons">
@@ -37,4 +39,9 @@ class DownloadingModal extends React.Component {
   }
 }
 
-export default DownloadingModal
+
+DownloadingModal.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(DownloadingModal)

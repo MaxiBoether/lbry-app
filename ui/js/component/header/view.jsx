@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'component/link';
 import WunderBar from 'component/wunderbar';
-import { connect } from 'react-redux';
 import { intlShape, injectIntl } from 'react-intl';
 
 export const Header = (props) => {

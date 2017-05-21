@@ -4,6 +4,8 @@ import lbry from 'lbry.js';
 import Link from 'component/link';
 import SubHeader from 'component/subHeader'
 import {version as uiVersion} from 'json!../../../package.json';
+import { intlShape, injectIntl } from 'react-intl';
+
 
 class HelpPage extends React.Component {
   constructor(props) {
@@ -29,6 +31,11 @@ class HelpPage extends React.Component {
   }
 
   render() {
+
+    const {
+      intl,
+    } = this.props
+
     let ver, osName, platform, newVerLink;
     if (this.state.versionInfo) {
       ver = this.state.versionInfo;
@@ -54,7 +61,7 @@ class HelpPage extends React.Component {
         <SubHeader />
         <section className="card">
           <div className="card__title-primary">
-            <h3>Read the FAQ</h3>
+            <h3>{intl.formatMessage({ id: 'app.page.help.read' })}</h3>
           </div>
           <div className="card__content">
             <p>Our FAQ answers many common questions.</p>
@@ -122,4 +129,8 @@ class HelpPage extends React.Component {
   }
 }
 
-export default HelpPage;
+HelpPage.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(HelpPage);
