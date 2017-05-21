@@ -16,3 +16,6 @@ dist
 .#*
 
 build/daemon.zip
+*.lock
+
+*.bat
