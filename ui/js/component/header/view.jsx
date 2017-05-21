@@ -1,12 +1,15 @@
 import React from 'react';
 import Link from 'component/link';
 import WunderBar from 'component/wunderbar';
+import { connect } from 'react-redux';
+import { intlShape, injectIntl } from 'react-intl';
 
 export const Header = (props) => {
   const {
     balance,
     back,
-    navigate
+    navigate,
+    intl
   } = props
 
   return <header id="header">
@@ -23,7 +26,7 @@ export const Header = (props) => {
       <Link onClick={() => navigate('/wallet')}  button="text" icon="icon-bank" label={balance} ></Link>
     </div>
     <div className="header__item">
-      <Link onClick={() => navigate('/publish')} button="primary button--flat" icon="icon-upload" label="Publish" />
+      <Link onClick={() => navigate('/publish')} button="primary button--flat" icon="icon-upload" label={intl.formatMessage({ id: 'app.publishButton' })} />
     </div>
     <div className="header__item">
       <Link onClick={() => navigate('/downloaded')} button="alt button--flat" icon="icon-folder" />
@@ -34,4 +37,8 @@ export const Header = (props) => {
   </header>
 }
 
-export default Header;
+Header.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(Header);

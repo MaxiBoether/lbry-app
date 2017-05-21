@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { addLocaleData } from 'react-intl';
 import lbry from './lbry.js';
 import lbryio from './lbryio.js';
 import lighthouse from './lighthouse.js';
@@ -21,10 +22,16 @@ import {
   doFileList
 } from 'actions/file_info'
 import parseQueryParams from 'util/query_params'
+import ReduxConnectedIntlProvider from 'util/connectedIntlProvider'
+
+import en from 'react-intl/locale-data/en';
+import de from 'react-intl/locale-data/de';
 
 const {remote, ipcRenderer, shell} = require('electron');
 const contextMenu = remote.require('./menu/context-menu');
 const app = require('./app')
+
+addLocaleData([...en, ...de]);
 
 lbry.showMenuIfNeeded();
 
@@ -78,7 +85,7 @@ var init = function() {
       "Discover", "/discover"))
     app.store.dispatch(doFetchDaemonSettings())
     app.store.dispatch(doFileList())
-    ReactDOM.render(<Provider store={store}><div>{ lbryio.enabled ? <AuthOverlay/> : '' }<App /><SnackBar /></div></Provider>, canvas)
+    ReactDOM.render(<Provider store={store}><ReduxConnectedIntlProvider><div>{ lbryio.enabled ? <AuthOverlay/> : '' }<App /><SnackBar /></div></ReduxConnectedIntlProvider></Provider>, canvas)
   }
 
   if (window.sessionStorage.getItem('loaded') == 'y') {
