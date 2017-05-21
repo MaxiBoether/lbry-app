@@ -4,7 +4,7 @@ import {CreditAmount, Icon} from 'component/common.js';
 import SubHeader from 'component/subHeader'
 import {RewardLink} from 'component/reward-link';
 
-import { intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 export class RewardTile extends React.Component {
   static propTypes = {
@@ -26,7 +26,7 @@ export class RewardTile extends React.Component {
           </div>
           <div className="card__actions">
             {this.props.claimed
-              ? <span><Icon icon="icon-check" /> {intl.formatMessage({ id: 'app.page.rewards.claimed' })}</span>
+              ? <span><Icon icon="icon-check" /> <FormattedMessage id='app.page.rewards.claimed' /></span>
               : <RewardLink {...this.props} />}
           </div>
           <div className="card__content">{this.props.description}</div>
@@ -62,16 +62,12 @@ export class RewardsPage extends React.Component {
 
   render() {
 
-    const {
-      intl,
-    } = this.props
-
     return (
       <main className="main--single-column">
         <SubHeader />
         <div>
           {!this.state.userRewards
-            ? (this.state.failed ? <div className="empty">{intl.formatMessage({ id: 'app.page.rewards.failed' })}</div> : '')
+            ? (this.state.failed ? <div className="empty"><FormattedMessage id='app.page.rewards.failed' /></div> : '')
             : this.state.userRewards.map(({RewardType, RewardTitle, RewardDescription, TransactionID, RewardAmount}) => {
               return <RewardTile key={RewardType} onRewardClaim={this.loadRewards} type={RewardType} title={RewardTitle} description={RewardDescription} claimed={!!TransactionID} value={RewardAmount} />;
             })}
@@ -81,8 +77,4 @@ export class RewardsPage extends React.Component {
   }
 }
 
-RewardsPage.propTypes = {
-  intl: intlShape.isRequired
-};
-
-export default injectIntl(RewardsPage);
+export default RewardsPage;

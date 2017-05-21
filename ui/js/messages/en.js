@@ -9,7 +9,7 @@ export const ENGLISH_TRANSLATION = {
 	  'app.page.report.explanation': 'Please describe the problem you experienced and any information you think might be useful to us. Links to screenshots are great!',
 	  'app.page.report.submitting': 'Submitting...',
 	  'app.page.report.submit': 'Submit Report',
-	  'app.page.help.read': 'Read the FAQ',
+	  'app.page.help.read': 'Read the FAQ dasd',
       'app.publishButton': 'Publish',
 	  'app.downloadingModal.updateDownload': 'Downloding Update',
 	  'app.downloadingModal.explanation1': 'Click "Begin Upgrade" to start the upgrade process.',

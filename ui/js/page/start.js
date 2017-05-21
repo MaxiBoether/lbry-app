@@ -1,7 +1,7 @@
 import React from 'react';
 import lbry from '../lbry.js';
 
-import { intlShape, injectIntl } from 'react-intl';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 
 class StartPage extends React.Component {
   componentWillMount() {
@@ -17,8 +17,8 @@ class StartPage extends React.Component {
 
     return (
       <main className="main--single-column">
-        <h3>{intl.formatMessage({ id: 'app.page.start.closed' })}</h3>
-        <Link href="lbry://lbry" label='app.page.start.start' />
+        <h3><FormattedMessage id='app.page.start.closed' /></h3>
+        <Link href="lbry://lbry" label={intl.formatMessage({ id: 'app.page.start.start' })} />
       </main>
     );
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'component/link';
 import Modal from '../component/modal.js';
 import lbry from '../lbry.js';
-import { intlShape, injectIntl } from 'react-intl';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 
 class ReportPage extends React.Component {
   constructor(props) {
@@ -44,8 +44,8 @@ class ReportPage extends React.Component {
     return (
       <main className="main--single-column">
         <section className="card">
-          <h3>{intl.formatMessage({ id: 'app.page.report.report' })}</h3>
-          <p>{intl.formatMessage({ id: 'app.page.report.explanation' })}</p>
+          <h3><FormattedMessage id='app.page.report.report' /></h3>
+          <p><FormattedMessage id='app.page.report.explanation'/></p>
           <div className="form-row">
             <textarea ref={(t) => this._messageArea = t} cols="80" rows="10" name="message" type="text"/>
           </div>

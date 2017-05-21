@@ -4,7 +4,7 @@ import lbry from 'lbry.js';
 import Link from 'component/link';
 import SubHeader from 'component/subHeader'
 import {version as uiVersion} from 'json!../../../package.json';
-import { intlShape, injectIntl } from 'react-intl';
+import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
 
 
 class HelpPage extends React.Component {
@@ -61,7 +61,7 @@ class HelpPage extends React.Component {
         <SubHeader />
         <section className="card">
           <div className="card__title-primary">
-            <h3>{intl.formatMessage({ id: 'app.page.help.read' })}</h3>
+            <h3><FormattedMessage id='app.page.help.read' /></h3>
           </div>
           <div className="card__content">
             <p>Our FAQ answers many common questions.</p>
