@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'component/link';
+import {FormRow} from 'component/form'
 import Modal from '../component/modal.js';
 import lbry from '../lbry.js';
 import { intlShape, injectIntl, FormattedMessage } from 'react-intl';
@@ -56,8 +57,10 @@ class ReportPage extends React.Component {
           </div>
         </section>
         <section className="card">
-          <h3>Developer?</h3>
-          You can also <Link href="https://github.com/lbryio/lbry/issues" label="submit an issue on GitHub"/>.
+          <div className="card__content">
+            <h3>Developer?</h3>
+            You can also <Link href="https://github.com/lbryio/lbry/issues" label="submit an issue on GitHub"/>.
+          </div>
         </section>
         <Modal isOpen={this.state.modal == 'submitted'} contentLabel="Bug report submitted"
                onConfirmed={(event) => { this.closeModal(event) }}>
