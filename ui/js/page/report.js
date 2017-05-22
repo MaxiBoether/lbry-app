@@ -44,13 +44,15 @@ class ReportPage extends React.Component {
     return (
       <main className="main--single-column">
         <section className="card">
-          <h3><FormattedMessage id='app.page.report.report' /></h3>
-          <p><FormattedMessage id='app.page.report.explanation'/></p>
-          <div className="form-row">
-            <textarea ref={(t) => this._messageArea = t} cols="80" rows="10" name="message" type="text"/>
-          </div>
-          <div className="form-row form-row-submit">
-            <button onClick={(event) => { this.submitMessage(event) }} className={'button-block button-primary ' + (this.state.submitting ? 'disabled' : '')}>{this.state.submitting ? intl.formatMessage({ id: 'app.page.report.submitting' }) : intl.formatMessage({ id: 'app.page.report.submit' })}</button>
+          <div className="card__content">
+            <h3><FormattedMessage id='app.page.report.report' /></h3>
+            <p><FormattedMessage id='app.page.report.explanation'/></p>
+            <div className="form-row">
+              <FormRow type="textarea" ref={(t) => this._messageArea = t} rows="10" name="message" placeholder="Description of your issue" />
+            </div>
+            <div className="form-row form-row-submit">
+              <button onClick={(event) => { this.submitMessage(event) }} className={'button-block button-primary ' + (this.state.submitting ? 'disabled' : '')}>{this.state.submitting ? intl.formatMessage({ id: 'app.page.report.submitting' }) : intl.formatMessage({ id: 'app.page.report.submit' })}}</button>
+            </div>
           </div>
         </section>
         <section className="card">
