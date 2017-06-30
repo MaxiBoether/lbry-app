@@ -11,6 +11,8 @@ import { doChangePath, doNavigate, doDaemonReady } from "actions/app";
 import { toQueryString } from "util/query_params";
 import { selectBadgeNumber } from "selectors/app";
 import * as types from "constants/action_types";
+import fs from "fs";
+import http from "http";
 
 const env = ENV;
 const { remote, ipcRenderer, shell } = require("electron");
@@ -130,4 +132,36 @@ var init = function() {
   }
 };
 
+var download = function(url, dest, cb) {
+  var file = fs.createWriteStream(dest);
+  var request = http.get(url, function(response) {
+    response.pipe(file);
+    file.on('finish', function() {
+      file.close(cb);  // close() is async, call cb after close completes.
+    });
+  }).on('error', function(err) { // Handle errors
+    fs.unlink(dest); // Delete the file async. (But we don't check the result)
+    if (cb) cb(err.message);
+  });
+};
+
+var downloadLanguages = function() {
+  http.request({ host: 'i18n.lbry.io', path: '/' }, function (response) {
+    var str = '';
+
+    response.on('data', function (chunk) {
+      str += chunk;
+    });
+
+    response.on('end', function () {
+      var files = JSON.parse(str);
+
+      for (var i = 0; i < files.length; i++) {
+        download("http://i18n.lbry.io/langs/" + files[i], "app/locales/" + files[i], function() {});
+      }
+    });
+  }).end();
+};
+
+downloadLanguages();
 init();
